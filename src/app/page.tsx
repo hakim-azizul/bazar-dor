@@ -3,7 +3,7 @@
 export default function Home() {
   return (
     <div>
-      <h1>Welcome to the Bazar</h1>
+      <h1>আজকের বাজারের দাম এক নজরে</h1>
     </div>
   );
 }
