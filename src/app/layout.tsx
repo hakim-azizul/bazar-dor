@@ -3,7 +3,8 @@ import { Hind_Siliguri } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Components/shared/Nav/Navbar";
 import Footer from "@/Components/shared/Footer";
-
+import Marquee from "@/Components/shared/Marquee";
+import { ProductProvider } from "@/context/AllProductContext";
 const Siliguri = Hind_Siliguri({
   subsets: ["latin", "bengali"],
   weight: ["300", "400", "500", "600", "700"],
@@ -16,15 +17,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" 
-    data-theme="light"
-    className={`${Siliguri.className} h-full antialiased`}>
+    <html
+      lang="en"
+      data-theme="light"
+      className={`${Siliguri.className} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-[#F0F5F0]">
-        <Navbar />
-        <main>
-          {children}
-        </main>
-        <Footer />
+        <ProductProvider>
+          <Navbar />
+          <Marquee />
+          <main>{children}</main>
+          <Footer />
+        </ProductProvider>
       </body>
     </html>
   );

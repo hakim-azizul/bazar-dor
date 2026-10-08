@@ -1,9 +1,16 @@
+import AllProducts from "@/Components/Home/AllProducts";
+import Hero from "@/Components/Home/Hero";
+import HigherPrice from "@/Components/Home/HigherPrice";
+import LowerPrice from "@/Components/Home/LowerPrice";
 
 
 export default function Home() {
   return (
     <div>
-      <h1>আজকের বাজারের দাম এক নজরে</h1>
+      <Hero />
+      <HigherPrice />
+      <LowerPrice />
+      <AllProducts />
     </div>
   );
 }
