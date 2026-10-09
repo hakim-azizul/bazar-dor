@@ -5,9 +5,10 @@ import React from "react";
 import Logo from "../../../assets/logo-icon.png";
 import Link from "next/link";
 import NaveLinks from "./NavLinks";
+import UserMenu from "./UserMenu";
 
 const Navbar = () => {
-  const date = new Date().toLocaleDateString("bn-BD", { dateStyle: "full" });
+  // const date = new Date().toLocaleDateString("bn-BD", { dateStyle: "full" });
 
   return (
     <nav className="navbar bg-white border border-gray-100 shadow-sm px-4 sm:px-8">
@@ -56,22 +57,15 @@ const Navbar = () => {
                     className="text-xs sm:text-sm text-gray-600"
                     suppressHydrationWarning
                   >
-                    {date}
+                    Date
+                    {/* {date} */}
                   </p>
                 </div>
               </div>
             </Link>
           </div>
           <div>
-            <Link href="/sign-in" className="btn btn-ghost rounded-lg">
-              সাইন ইন
-            </Link>
-            <Link
-              href="/sign-up"
-              className="btn bg-green-700 hover:bg-green-800 text-white rounded-lg ml-2"
-            >
-              সাইন আপ
-            </Link>
+            <UserMenu />
           </div>
         </div>
         <div className="hidden lg:flex w-full border-t border-gray-100 items-center justify-start pt-3">

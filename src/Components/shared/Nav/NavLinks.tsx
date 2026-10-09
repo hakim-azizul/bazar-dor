@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { apiBaseUrl2 } from "@/Services/apiBaseUrl";
 
 interface Category {
   id: string;
@@ -23,9 +24,7 @@ const NaveLinks = ({ isMobile = false }: NavLinksProps) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch(
-          "https://api.api-store.workers.dev/api/bazardor/categories",
-        );
+        const response = await fetch(`${apiBaseUrl2}/categories`,);
         const data = await response.json();
         setCategories(data);
       } catch (error) {
