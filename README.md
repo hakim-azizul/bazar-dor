@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛒 BazarDor (বাজার দর)
 
-## Getting Started
+BazarDor hocche ekti modern ebong user-friendly web application, jekhane beboharikarira protidiner nittoproyojoniyo ponner dam jante paren, damer otha-nama (fluctuations) dekhte paren ebong nijosho account toiri kore profile manage korte paren.
 
-First, run the development server:
+## ✨ Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+*   **📊 Daily Price Tracking (বাজারের দাম):** 
+    *   Protidiner kacha bazarer (sobji, chal, mach, mangsho ittadi) update kora dam shohoje khuje power subidha.
+    *   Sotik damer pasapashi ponner unit (kg, litre, piece) onujayi detail category list.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+*   **📈 Live Fluctuation Indicator (দামের ওঠা-নামা):**
+    *   Agger diner damer sathe tulona kore ajker dam koto shotangsho (percentage) bareche ba komeche tar tracking.
+    *   Shohoje bojhar jonno visual indicator hisebe laal (▲) ebong sobuj (▼) chinho bebohar.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+*   **🔒 Secure Authentication System (নিরাপদ লগইন):**
+    *   Standard Email ebong Password bebohar kore secure login o registration.
+    *   **Social Login:** Ek klicke Google ebong GitHub account diye druto login korar subidha.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+*   **👤 Personalized Profile & Modern UI (প্রোফাইল ও ইউজার ইন্টারফেস):**
+    *   Beboharikarider nijosho profile dashboard, jekhan theke nam o tatthyo update kora jay.
+    *   Modern Tailwind CSS, HeroUI ebong Skeleton Loading bebohar kore toiri kora fast o responsive design, ja mobile o desktop-e parfectly kaj kore.
 
-## Learn More
+## 🛠️ Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** Next.js (App Router)
+- **Library:** React.js
+- **Styling:** Tailwind CSS
+- **UI Components:** HeroUI (formerly NextUI)
+- **Notifications:** React Toastify
+- **Authentication:** Custom Auth Client (Email/Password, Google, GitHub)
