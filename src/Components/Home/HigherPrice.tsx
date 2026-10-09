@@ -6,7 +6,11 @@ import MiniProductCard from "../shared/MiniProductCard";
 
 const HigherPrice = () => {
   const { products, loading } = useProducts();
-  const higherProducts = products.filter((p) => p.change.dir === "up");
+  
+  const higherProducts = products
+    .filter((p) => p.change.dir === "up")
+    .sort((a, b) => b.change.pct - a.change.pct)
+    .slice(0, 6);
 
   if (loading) {
     return <div className="text-center py-6 text-gray-500">loading higher-priced products...</div>;
