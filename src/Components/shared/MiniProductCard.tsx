@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { Product } from "@/types/product";
 
 interface HomeProductCardProps {
@@ -42,8 +43,12 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ product }) => {
   const formattedPct = convertToBengaliNumber(product.change.pct);
   const unitName = formatUnit(product.unit);
 
+  // বাইরের div-কে Link দিয়ে রিপ্লেস করে href অ্যাড করা হয়েছে
   return (
-    <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
+    <Link
+      href={`/products/${product.id}`}
+      className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col justify-between cursor-pointer"
+    >
       <div className="flex items-center gap-3.5 mb-4">
         <div className="w-12 h-12 rounded-2xl bg-gray-50 flex items-center justify-center text-2xl border border-gray-100">
           {product.image || product.categoryIcon}
@@ -70,17 +75,17 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ product }) => {
             isZero
               ? "bg-gray-100 text-gray-600"
               : isUp
-                ? "bg-red-50 text-red-600"
-                : isDown
-                  ? "bg-green-50 text-green-700"
-                  : "bg-gray-100 text-gray-600"
+              ? "bg-red-50 text-red-600"
+              : isDown
+              ? "bg-green-50 text-green-700"
+              : "bg-gray-100 text-gray-600"
           }`}
         >
           <span>{isZero ? "—" : isUp ? "▲" : isDown ? "▼" : ""}</span>
           <span>{formattedPct}%</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

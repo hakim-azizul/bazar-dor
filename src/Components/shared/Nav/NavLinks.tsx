@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { apiBaseUrl2 } from "@/Services/apiBaseUrl";
+import React from "react";
 
 interface Category {
   id: string;
@@ -13,63 +12,32 @@ interface Category {
 }
 
 interface NavLinksProps {
+  categories: Category[];
   isMobile?: boolean;
 }
 
-const NaveLinks = ({ isMobile = false }: NavLinksProps) => {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [loading, setLoading] = useState(true);
-  const pathname = usePathname();
+const NavLinks = ({ categories, isMobile = false }: NavLinksProps) => {
+  const pathname = usePathname(); // এখানে কোনো এরর আসবে না কারণ এটি প্রপার ক্লায়েন্ট কম্পোনেন্ট
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl2}/categories`,);
-        const data = await response.json();
-        setCategories(data);
-      } catch (error) {
-        console.error("ক্যাটাগরি ফেচ করতে সমস্যা হয়েছে:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const getLinkClasses = (categoryPath: string) => {
+    const isActive = pathname === categoryPath;
+    if (isMobile) {
+      return isActive 
+        ? "bg-green-700 text-white font-semibold flex items-center gap-2 p-2 rounded-lg" 
+        : "flex items-center gap-2 p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition-all";
+    }
+    return isActive
+      ? "bg-[#107c41] text-white shadow-sm font-semibold flex items-center gap-2 px-3 py-1.5 rounded-xl whitespace-nowrap"
+      : "hover:bg-gray-100 text-gray-700 flex items-center gap-2 px-3 py-1.5 rounded-xl whitespace-nowrap transition-all";
+  };
 
-    fetchCategories();
-  }, []);
-
-  if (loading) {
-    return <li className="p-2 text-gray-500 text-sm">লোড হচ্ছে...</li>;
-  }
-  if (isMobile) {
-    return (
-      <>
-        {categories.map((cat) => (
-          <li key={cat.id}>
-            <Link href={`/category/${cat.slug}`}>
-              <span>{cat.icon}</span>
-              <span>{cat.nameBn}</span>
-            </Link>
-          </li>
-        ))}
-      </>
-    );
-  }
   return (
-    <ul className="flex items-center gap-4 font-medium text-gray-700 overflow-x-auto">
+    <ul className={isMobile ? "flex flex-col gap-1" : "flex items-center gap-4 font-medium text-gray-700 overflow-x-auto"}>
       {categories.map((cat) => {
         const categoryPath = `/category/${cat.slug}`;
-        const isActive = pathname === categoryPath;
-
         return (
           <li key={cat.id}>
-            <Link
-              href={categoryPath}
-              className={`flex justify-start items-center gap-2 px-2 rounded-xl transition-all whitespace-nowrap ${
-                isActive
-                  ? "bg-[#107c41] text-white shadow-sm font-semibold"
-                  : "hover:bg-gray-100 text-gray-700"
-              }`}
-            >
+            <Link href={categoryPath} className={getLinkClasses(categoryPath)}>
               <span className="text-lg">{cat.icon}</span>
               <span>{cat.nameBn}</span>
             </Link>
@@ -80,4 +48,4 @@ const NaveLinks = ({ isMobile = false }: NavLinksProps) => {
   );
 };
 
-export default NaveLinks;
+export default NavLinks;

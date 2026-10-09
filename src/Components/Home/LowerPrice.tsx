@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useProducts } from "@/context/AllProductContext";
-import HomeProductCard from "./HomeProductCard";
+import MiniProductCard from "../shared/MiniProductCard";
 
 const LowerPrice = () => {
   const { products, loading } = useProducts();
@@ -23,7 +23,7 @@ const LowerPrice = () => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {lowerProducts.map((product) => (
-          <HomeProductCard key={product.id} product={product} />
+          <MiniProductCard key={product.id} product={product} />
         ))}
       </div>
     </section>
