@@ -63,7 +63,7 @@ export default function ProductDetailPage({ params }: PageProps) {
         <Suspense
           fallback={
             <div className="flex items-center justify-center min-h-[40vh] text-gray-500 font-medium text-lg">
-              product lod hocche...
+              product is Loading...
             </div>
           }
         >

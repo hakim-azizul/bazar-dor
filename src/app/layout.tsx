@@ -5,6 +5,9 @@ import Navbar from "@/Components/shared/Nav/Navbar";
 import Footer from "@/Components/shared/Footer";
 import Marquee from "@/Components/shared/Marquee";
 import { ProductProvider } from "@/context/AllProductContext";
+import ToastProvider from "@/Components/shared/ToastProvider";
+
+
 const Siliguri = Hind_Siliguri({
   subsets: ["latin", "bengali"],
   weight: ["300", "400", "500", "600", "700"],
@@ -26,6 +29,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <ProductProvider>
           <Navbar />
           <Marquee />
+          <ToastProvider />
           <main>{children}</main>
           <Footer />
         </ProductProvider>

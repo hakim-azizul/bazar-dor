@@ -1,13 +1,12 @@
 import React from "react";
 import { Product } from "@/types/product";
 
-// ইংরেজি সংখ্যাকে বাংলায় কনভার্ট করার হেল্পার ফাংশন
 const engToBng = (num: number | string) => {
   const banglaDigits = ["০", "১", "২", "৩", "৪", "৫", "৬", "৭", "৮", "৯"];
   return num
     .toString()
     .replace(/\d/g, (d) => banglaDigits[parseInt(d)])
-    .replace(".", "."); // দশমিক থাকলে ঠিক রাখবে
+    .replace(".", ".");
 };
 
 export default function ProductDetailsUI({ product }: { product: Product }) {
@@ -24,7 +23,6 @@ export default function ProductDetailsUI({ product }: { product: Product }) {
 
   return (
     <div className="space-y-6">
-      {/* Top Card */}
       <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
         <div className="flex items-center gap-5">
           <div className="w-18 h-18 rounded-xl bg-[#F4F6F4] flex items-center justify-center text-4xl border border-gray-100/50 shadow-inner">
@@ -62,10 +60,7 @@ export default function ProductDetailsUI({ product }: { product: Product }) {
           </p>
         </div>
       </div>
-
-      {/* Main Bottom Section (Summary + Table) */}
       <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
-        {/* Price Summary Section */}
         <div className="mb-10">
           <h2 className="text-[17px] font-bold text-gray-800 mb-5">
             দামের সারসংক্ষেপ
@@ -105,14 +100,10 @@ export default function ProductDetailsUI({ product }: { product: Product }) {
             </div>
           </div>
         </div>
-
-        {/* Markets Table Section */}
         <div>
           <h2 className="text-[17px] font-bold text-gray-800 mb-5">
             বাজারভিত্তিক আজকের দাম
           </h2>
-
-          {/* Table er bairer border */}
           <div className="overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
             <table className="w-full text-left border-collapse min-w-150">
               <thead className="bg-[#F9FAFB] border-b border-gray-200">
@@ -134,8 +125,6 @@ export default function ProductDetailsUI({ product }: { product: Product }) {
                   </th>
                 </tr>
               </thead>
-
-              {/* Table Body */}
               <tbody>
                 {product.markets?.map((item, index) => {
                   const itemAvg = Math.round((item.min + item.max) / 2);

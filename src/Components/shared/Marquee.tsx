@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useProducts } from "@/context/AllProductContext";
 
 const convertToBengaliNumber = (num: number | string): string => {
@@ -19,6 +20,7 @@ const formatUnit = (unit: string): string => {
 
 const Marquee = () => {
   const { products, loading } = useProducts();
+  const router = useRouter();
 
   if (loading) {
     return (
@@ -27,10 +29,13 @@ const Marquee = () => {
       </div>
     );
   }
+  const handleNavigation = (id: string | number) => {
+    router.push(`/products/${id}`);
+  };
 
   return (
-    <div className="bg-white border-y border-gray-100 py-3 overflow-hidden whitespace-nowrap relative shadow-sm">
-      <div className="inline-flex animate-marquee items-center gap-10">
+    <div className="bg-white border-y border-gray-100 py-3 overflow-hidden whitespace-nowrap relative shadow-sm pointer-events-auto">
+      <div className="inline-flex animate-marquee items-center gap-10 hover:pause">
         {[...products, ...products].map((product, index) => {
           const isUp = product.change.dir === "up";
           const formattedPrice = convertToBengaliNumber(product.today);
@@ -40,10 +45,15 @@ const Marquee = () => {
           return (
             <div
               key={`${product.id}-${index}`}
-              className="inline-flex items-center gap-2 text-sm text-gray-700 px-4 border-r border-gray-200"
+              onClick={() => handleNavigation(product.id)}
+              className="relative z-10 pointer-events-auto inline-flex items-center gap-2 text-sm text-gray-700 px-4 border-r border-gray-200 hover:text-green-700 transition-colors cursor-pointer"
             >
-              <span className="text-base">{product.image || product.categoryIcon}</span>
-              <span className="font-medium text-gray-800">{product.nameBn}</span>
+              <span className="text-base">
+                {product.image || product.categoryIcon}
+              </span>
+              <span className="font-medium text-gray-800">
+                {product.nameBn}
+              </span>
               <span className="font-semibold text-gray-900">
                 {formattedPrice} টাকা/{unitName}
               </span>

@@ -4,19 +4,16 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, updateUser } from "@/lib/auth-client";
 import { Button, Form, Input, Label, TextField } from "@heroui/react";
+import { toast } from "react-toastify";
 
 const ProfileUpdatePage = () => {
   const router = useRouter();
   const { data: session, isPending } = useSession();
   const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
 
   const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    setSuccessMessage("");
-    setErrorMessage("");
 
     const formData = new FormData(e.currentTarget);
     const name = formData.get("name") as string;
@@ -27,17 +24,37 @@ const ProfileUpdatePage = () => {
       });
 
       if (error) {
-        setErrorMessage(error.message || "তথ্য আপডেট করতে সমস্যা হয়েছে।");
+        toast.error(error.message || "তথ্য আপডেট করতে সমস্যা হয়েছে।", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        // এরর হলে ১ সেকেন্ড পর পেজ রিলোড হবে
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
-        setSuccessMessage("প্রোফাইল সফলভাবে আপডেট করা হয়েছে!");
+        toast.success("প্রোফাইল সফলভাবে আপডেট করা হয়েছে!", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        // সাকসেস হলে ১ সেকেন্ড পর প্রোফাইল পেজে রিডাইরেক্ট হবে
         setTimeout(() => {
           router.push("/profile");
           router.refresh();
         }, 1000);
       }
-    } catch (err) {
-      console.error(err);
-      setErrorMessage("কোথাও কোনো সমস্যা হয়েছে।");
+    } catch {
+      toast.error("কোথাও কোনো সমস্যা হয়েছে।", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+
+      // এরর হলে ১ সেকেন্ড পর পেজ রিলোড হবে
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } finally {
       setLoading(false);
     }
@@ -72,18 +89,6 @@ const ProfileUpdatePage = () => {
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-900 mb-6">তথ্য</h3>
 
-          {successMessage && (
-            <div className="mb-4 p-3 bg-green-50 border border-green-200 text-green-700 text-sm rounded-lg text-center">
-              {successMessage}
-            </div>
-          )}
-
-          {errorMessage && (
-            <div className="mb-4 p-3 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg text-center">
-              {errorMessage}
-            </div>
-          )}
-
           <Form className="flex flex-col gap-6 w-full" onSubmit={handleUpdate}>
             <TextField 
               defaultValue={session?.user?.name || ""}
@@ -115,4 +120,4 @@ const ProfileUpdatePage = () => {
   );
 };
 
-export default ProfileUpdatePage; 
+export default ProfileUpdatePage;

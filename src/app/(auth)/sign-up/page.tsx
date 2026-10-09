@@ -12,54 +12,120 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
+import { toast } from "react-toastify";
 
 const SignUpPage = () => {
   const router = useRouter();
   const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState(false);
 
-const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setGeneralError("");
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    console.log("Form Data:", data);
-
     if (data.password !== data.confirmPassword) {
       setGeneralError("পাসওয়ার্ড এবং নিশ্চিত পাসওয়ার্ড মিলেনি!");
+      toast.error("পাসওয়ার্ড এবং নিশ্চিত পাসওয়ার্ড মিলেনি!", {
+        position: "top-right",
+        autoClose: 1000,
+      });
       return;
     }
 
     setLoading(true);
-    const { data: signUpData, error: signUpError } = await signUp.email({
-      name: data.name as string,
-      email: data.email as string,
-      password: data.password as string,
-    });
+    try {
+      const { error: signUpError } = await signUp.email({
+        name: data.name as string,
+        email: data.email as string,
+        password: data.password as string,
+      });
 
-    console.log("Sign Up Data:", signUpData);
-    if (signUpError) {
-      console.error("Sign Up Error:", signUpError);
-      setGeneralError(signUpError.message || "রেজিস্ট্রেশন করতে সমস্যা হয়েছে।");
-    } else {
-      router.push("/");
-      router.refresh();
+      if (signUpError) {
+        setGeneralError(signUpError.message || "রেজিস্ট্রেশন করতে সমস্যা হয়েছে।");
+        toast.error(signUpError.message || "রেজিস্ট্রেশন করতে সমস্যা হয়েছে।", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        toast.success("সফলভাবে অ্যাকাউন্ট তৈরি হয়েছে!", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        setTimeout(() => {
+          router.push("/sign-in");
+          router.refresh();
+        }, 1000);
+      }
+    } catch {
+      setGeneralError("কোথাও কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।");
+      toast.error("কোথাও কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleGoogleSignUp = async () => {
-    const signInData = await signIn.social({
-      provider: "google",
-    });
-    console.log("after google sign in", signInData);
+    try {
+      const { error } = await signIn.social({
+        provider: "google",
+      });
+      
+      if (error) {
+        toast.error(error.message || "Google দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        setTimeout(() => window.location.reload(), 1000);
+      }
+
+    } catch {
+      toast.error("Google দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+
+      setTimeout(() => window.location.reload(), 1000);
+    }
   };
+  
   const handleGitHubSignUp = async () => {
-    const signInData = await signIn.social({
-      provider: "github",
-    });
-    console.log("after github sign in", signInData);
+    try {
+      const { error } = await signIn.social({
+        provider: "github",
+      });
+
+      if (error) {
+        toast.error(error.message || "GitHub দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
+          position: "top-right",
+          autoClose: 1000,
+        });
+
+        setTimeout(() => window.location.reload(), 1000);
+      }
+
+    } catch {
+      toast.error("GitHub দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
+        position: "top-right",
+        autoClose: 1000,
+      });
+
+      setTimeout(() => window.location.reload(), 1000);
+    }
   };
 
   return (
@@ -119,7 +185,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             }}
           >
             <Label className="block text-sm font-medium text-gray-700 mb-1">পাসওয়ার্ড</Label>
-            <Input placeholder="কমপক্ষে ৮ অক্ষর" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm" />
+            <Input placeholder="কমপক্ষে ৮ অক্ষর" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm" type="password" />
             <Description className="text-xs text-gray-500 mt-1">
               কমপক্ষে ৮ অক্ষর হতে হবে।
             </Description>
@@ -131,7 +197,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
             type="password"
           >
             <Label className="block text-sm font-medium text-gray-700 mb-1">পাসওয়ার্ড নিশ্চিত করুন</Label>
-            <Input placeholder="আবার লিখুন" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm" />
+            <Input placeholder="আবার লিখুন" className="w-full px-4 py-2.5 border border-gray-200 rounded-lg text-sm" type="password" />
             <FieldError className="text-xs text-red-500 mt-1" />
           </TextField>
 
@@ -179,13 +245,11 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
           </Button>
         </div>
 
-        {/* Sign In Link */}
         <div className="text-center mt-6 text-sm text-gray-600">
           অ্যাকাউন্ট আছে? <Link href="/signin" className="text-[#107c41] font-semibold hover:underline">সাইন ইন করুন</Link>
         </div>
       </div>
 
-      {/* Back to Home */}
       <div className="mt-6">
         <Link href="/" className="text-sm text-gray-500 hover:text-gray-800 transition-colors">
           ← হোম পেজে ফিরে যান
