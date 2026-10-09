@@ -17,7 +17,7 @@ interface NavLinksProps {
 }
 
 const NavLinks = ({ categories, isMobile = false }: NavLinksProps) => {
-  const pathname = usePathname(); // এখানে কোনো এরর আসবে না কারণ এটি প্রপার ক্লায়েন্ট কম্পোনেন্ট
+  const pathname = usePathname();
 
   const getLinkClasses = (categoryPath: string) => {
     const isActive = pathname === categoryPath;
