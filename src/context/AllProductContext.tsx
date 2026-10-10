@@ -1,7 +1,7 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { Product } from "@/types/product";
-import { apiBaseUrl } from "@/Services/apiBaseUrl"; 
+import { apiBaseUrl2 } from "@/Services/apiBaseUrl"; 
 
 interface ProductContextType {
   products: Product[];
@@ -20,7 +20,7 @@ export const ProductProvider = ({ children }: { children: React.ReactNode }) => 
     const fetchAllProducts = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`${apiBaseUrl}/products`);
+        const response = await fetch(`${apiBaseUrl2}/products`);
         if (!response.ok) {
           throw new Error("Error fetching products");
         }
