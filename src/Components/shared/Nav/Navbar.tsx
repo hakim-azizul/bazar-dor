@@ -2,7 +2,7 @@ import Image from "next/image";
 import React, { Suspense } from "react";
 import Logo from "../../../assets/logo-icon.png";
 import Link from "next/link";
-import NaveLinks from "./NavLinks";
+import NaveLinks, { NavLinksSkeleton } from "./NavLinks"; 
 import UserMenu from "./UserMenu";
 import { apiBaseUrl2 } from "@/Services/apiBaseUrl";
 import NewDate from "./NewDate";
@@ -51,7 +51,7 @@ const Navbar = async () => {
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-56 p-2 shadow-md border border-gray-100"
               >
                 <Suspense
-                  fallback={<NaveLinks categories={[]} isMobile={true} loading={true} />}
+                  fallback={<NavLinksSkeleton isMobile={true} />}
                 >
                   <NaveLinks categories={categories} isMobile={true} />
                 </Suspense>
@@ -81,7 +81,7 @@ const Navbar = async () => {
         </div>
         <div className="hidden lg:flex w-full border-t border-gray-100 items-center justify-start pt-3">
           <Suspense
-            fallback={<NaveLinks categories={[]} isMobile={false} loading={true} />}
+            fallback={<NavLinksSkeleton isMobile={false} />}
           >
             <NaveLinks categories={categories} isMobile={false} />
           </Suspense>
