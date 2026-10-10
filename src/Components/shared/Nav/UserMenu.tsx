@@ -5,7 +5,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSession, signOut } from "@/lib/auth-client";
 import Image from "next/image";
-import person from "@/assets/person-fill.svg"
+import person from "@/assets/person-fill.svg";
+
 const UserMenu = () => {
   const { data: session, isPending } = useSession();
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +42,16 @@ const UserMenu = () => {
   };
 
   if (isPending) {
-    return <div className="text-xs text-gray-400">লোডিং...</div>;
+    return (
+      <div className="flex items-center gap-2.5 py-1 px-2 animate-pulse">
+
+        <div className="w-9 h-9 rounded-full bg-gray-200"></div>
+
+        <div className="h-4 w-20 bg-gray-200 rounded hidden sm:block"></div>
+
+        <div className="w-3 h-3 bg-gray-200 rounded-full hidden sm:block"></div>
+      </div>
+    );
   }
 
   if (!session) {
@@ -72,17 +82,15 @@ const UserMenu = () => {
         className="flex items-center gap-2.5 focus:outline-none py-1 px-2 rounded-xl hover:bg-gray-50 transition-all cursor-pointer"
       >
         <Image
-          src={
-            user.image|| person
-          }
+          src={user.image || person}
           width={36}
           height={36}
           alt={user.name || "User"}
           className="w-9 h-9 rounded-full object-cover border border-gray-200"
         />
-        <span className="font-semibold text-gray-800 text-sm">{user.name}</span>
+        <span className="font-semibold text-gray-800 text-sm hidden sm:block">{user.name}</span>
         <svg
-          className={`w-3.5 h-3.5 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className={`w-3.5 h-3.5 text-gray-500 transition-transform hidden sm:block ${isOpen ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"

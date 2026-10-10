@@ -1,7 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import {
   Button,
@@ -11,12 +11,22 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SignPage = () => {
+const SignPageContent = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [generalError, setGeneralError] = useState("");
   const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (searchParams.get("error") === "need-login") {
+      toast.error("Product Details দেখতে আগে সাইন ইন করুন!", {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    }
+  }, [searchParams]);
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,12 +39,10 @@ const SignPage = () => {
       const { error: signInError } = await signIn.email({
         email: data.email as string,
         password: data.password as string,
-        callbackURL: "/",
       });
 
       if (signInError) {
         setGeneralError(signInError.message || "সাইন ইন করতে সমস্যা হয়েছে।");
-
         toast.error(signInError.message || "সাইন ইন করতে সমস্যা হয়েছে।", {
           position: "top-right",
           autoClose: 1000,
@@ -56,7 +64,6 @@ const SignPage = () => {
       }
     } catch {
       setGeneralError("কোথাও কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।");
-
       toast.error("কোথাও কোনো সমস্যা হয়েছে। আবার চেষ্টা করুন।", {
         position: "top-right",
         autoClose: 1000,
@@ -82,7 +89,7 @@ const SignPage = () => {
           {
             position: "top-right",
             autoClose: 1000,
-          },
+          }
         );
         setTimeout(() => window.location.reload(), 1000);
       }
@@ -107,7 +114,7 @@ const SignPage = () => {
           {
             position: "top-right",
             autoClose: 1000,
-          },
+          }
         );
         setTimeout(() => window.location.reload(), 1000);
       }
@@ -122,6 +129,7 @@ const SignPage = () => {
 
   return (
     <div className="min-h-screen bg-[#F0F5F0] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+      <ToastContainer />
       <div className="text-center mb-6">
         <h2 className="text-3xl font-extrabold text-gray-900">সাইন ইন</h2>
         <p className="text-sm text-gray-600 mt-1">
@@ -261,4 +269,10 @@ const SignPage = () => {
   );
 };
 
-export default SignPage;
+export default function SignPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#F0F5F0] flex items-center justify-center">লোড হচ্ছে...</div>}>
+      <SignPageContent />
+    </Suspense>
+  );
+}

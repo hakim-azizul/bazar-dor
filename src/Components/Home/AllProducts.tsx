@@ -3,6 +3,7 @@
 import React from "react";
 import { useProducts } from "@/context/AllProductContext";
 import MiniProductCard from "../shared/MiniProductCard";
+import MiniProductSkeleton from "@/Components/Home/MiniProductSkeleton";
 
 const convertToBengaliNumber = (num: number | string): string => {
   const englishToBengaliDigits: { [key: string]: string } = {
@@ -25,14 +26,6 @@ const convertToBengaliNumber = (num: number | string): string => {
 const AllProducts = () => {
   const { products, loading } = useProducts();
 
-  if (loading) {
-    return (
-      <div className="text-center py-10 text-gray-500">
-        loading all products...
-      </div>
-    );
-  }
-
   const totalProductsCount = convertToBengaliNumber(products.length);
 
   return (
@@ -42,14 +35,20 @@ const AllProducts = () => {
           সব পণ্য
         </h2>
         <p className="text-xs sm:text-sm text-gray-600">
-          মোট {totalProductsCount}টি পণ্য দেখানো হচ্ছে
+          {loading ? "পণ্য লোড হচ্ছে..." : `মোট ${totalProductsCount}টি পণ্য দেখানো হচ্ছে`}
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {products.map((product) => (
-          <MiniProductCard key={product.id} product={product} />
-        ))}
+        {loading
+          ?
+            Array.from({ length: 6 }).map((_, index) => (
+              <MiniProductSkeleton key={index} />
+            ))
+          :
+            products.map((product) => (
+              <MiniProductCard key={product.id} product={product} />
+            ))}
       </div>
     </section>
   );

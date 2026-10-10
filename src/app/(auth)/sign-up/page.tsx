@@ -12,7 +12,8 @@ import {
   Label,
   TextField,
 } from "@heroui/react";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const SignUpPage = () => {
   const router = useRouter();
@@ -29,7 +30,7 @@ const SignUpPage = () => {
       setGeneralError("পাসওয়ার্ড এবং নিশ্চিত পাসওয়ার্ড মিলেনি!");
       toast.error("পাসওয়ার্ড এবং নিশ্চিত পাসওয়ার্ড মিলেনি!", {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 1500,
       });
       return;
     }
@@ -59,7 +60,7 @@ const SignUpPage = () => {
         });
 
         setTimeout(() => {
-          router.push("/sign-in");
+          router.push("/");
           router.refresh();
         }, 1000);
       }
@@ -89,16 +90,13 @@ const SignUpPage = () => {
           position: "top-right",
           autoClose: 1000,
         });
-
         setTimeout(() => window.location.reload(), 1000);
       }
-
     } catch {
       toast.error("Google দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
         position: "top-right",
         autoClose: 1000,
       });
-
       setTimeout(() => window.location.reload(), 1000);
     }
   };
@@ -114,22 +112,21 @@ const SignUpPage = () => {
           position: "top-right",
           autoClose: 1000,
         });
-
         setTimeout(() => window.location.reload(), 1000);
       }
-
     } catch {
       toast.error("GitHub দিয়ে সাইন আপ করতে সমস্যা হয়েছে।", {
         position: "top-right",
         autoClose: 1000,
       });
-
       setTimeout(() => window.location.reload(), 1000);
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#F0F5F0] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F0F5F0] flex flex-col items-center justify-center py-12 px-4 sm:px-6 lg:px-8 relative">
+      <ToastContainer />
+
       <div className="text-center mb-6">
         <h2 className="text-3xl font-bold text-gray-900">অ্যাকাউন্ট তৈরি করুন</h2>
         <p className="text-sm text-gray-600 mt-1">বিনামূল্যে সাইন আপ করে সব বিস্তারিত দাম দেখুন।</p>

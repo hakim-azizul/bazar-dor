@@ -3,21 +3,15 @@
 import React from "react";
 import { useProducts } from "@/context/AllProductContext";
 import MiniProductCard from "../shared/MiniProductCard";
+import MiniProductSkeleton from "@/Components/Home/MiniProductSkeleton";
 
 const LowerPrice = () => {
   const { products, loading } = useProducts();
+  
   const lowerProducts = products
     .filter((p) => p.change.dir === "down")
     .sort((a, b) => a.change.pct - b.change.pct)
     .slice(0, 6);
-
-  if (loading) {
-    return (
-      <div className="text-center py-6 text-gray-500">
-        loading lower-priced products...
-      </div>
-    );
-  }
 
   return (
     <section className="container mx-auto px-4 py-6">
@@ -29,9 +23,13 @@ const LowerPrice = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {lowerProducts.map((product) => (
-          <MiniProductCard key={product.id} product={product} />
-        ))}
+        {loading
+          ? Array.from({ length: 6 }).map((_, index) => (
+              <MiniProductSkeleton key={index} />
+            ))
+          : lowerProducts.map((product) => (
+              <MiniProductCard key={product.id} product={product} />
+            ))}
       </div>
     </section>
   );

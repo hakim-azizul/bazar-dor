@@ -28,8 +28,6 @@ const ProfileUpdatePage = () => {
           position: "top-right",
           autoClose: 1000,
         });
-
-        // এরর হলে ১ সেকেন্ড পর পেজ রিলোড হবে
         setTimeout(() => {
           window.location.reload();
         }, 1000);
@@ -38,8 +36,6 @@ const ProfileUpdatePage = () => {
           position: "top-right",
           autoClose: 1000,
         });
-
-        // সাকসেস হলে ১ সেকেন্ড পর প্রোফাইল পেজে রিডাইরেক্ট হবে
         setTimeout(() => {
           router.push("/profile");
           router.refresh();
@@ -50,8 +46,6 @@ const ProfileUpdatePage = () => {
         position: "top-right",
         autoClose: 1000,
       });
-
-      // এরর হলে ১ সেকেন্ড পর পেজ রিলোড হবে
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -62,8 +56,30 @@ const ProfileUpdatePage = () => {
 
   if (isPending) {
     return (
-      <div className="min-h-screen bg-[#F0F5F0] flex items-center justify-center">
-        <p className="text-gray-600">লোড হচ্ছে...</p>
+      <div className="min-h-screen bg-[#F0F5F0] py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto space-y-6 animate-pulse">
+
+          <div>
+            <div className="h-4 w-32 bg-gray-200 rounded mb-4"></div>
+            <div className="h-9 w-48 bg-gray-200 rounded-md mb-2"></div>
+            <div className="h-4 w-64 bg-gray-200 rounded-md"></div>
+          </div>
+
+          <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div className="h-6 w-16 bg-gray-200 rounded-md mb-6"></div>
+            
+            <div className="flex flex-col gap-6 w-full">
+              <div className="flex flex-col gap-1">
+
+                <div className="h-4 w-12 bg-gray-200 rounded mb-1"></div>
+
+                <div className="h-10.5 w-full bg-gray-100 rounded-lg"></div>
+              </div>
+
+              <div className="h-12 w-full bg-gray-200 rounded-xl mt-2"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -71,8 +87,6 @@ const ProfileUpdatePage = () => {
   return (
     <div className="min-h-screen bg-[#F0F5F0] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
-        
-        {/* Header Heading */}
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Link href="/profile" className="text-sm text-[#107c41] hover:underline font-medium">
@@ -84,8 +98,6 @@ const ProfileUpdatePage = () => {
             আপনার অ্যাকাউন্টের তথ্য পরিবর্তন করুন।
           </p>
         </div>
-
-        {/* Form Container */}
         <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
           <h3 className="text-lg font-bold text-gray-900 mb-6">তথ্য</h3>
 

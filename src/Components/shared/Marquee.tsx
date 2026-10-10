@@ -24,11 +24,28 @@ const Marquee = () => {
 
   if (loading) {
     return (
-      <div className="bg-white border-y border-gray-100 py-3 px-4 text-center text-sm text-gray-500">
-        লোড হচ্ছে...
+      <div className="bg-white border-y border-gray-100 py-3 overflow-hidden whitespace-nowrap relative shadow-sm pointer-events-auto">
+        <div className="inline-flex animate-pulse items-center gap-10">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div
+              key={index}
+              className="inline-flex items-center gap-3 px-4 border-r border-gray-200"
+            >
+              {/* Icon Skeleton */}
+              <div className="w-5 h-5 bg-gray-200 rounded-full"></div>
+              {/* Product Name Skeleton */}
+              <div className="h-4 bg-gray-200 rounded w-16"></div>
+              {/* Price Skeleton */}
+              <div className="h-4 bg-gray-200 rounded w-24"></div>
+              {/* Change % Skeleton */}
+              <div className="h-4 bg-gray-200 rounded w-12"></div>
+            </div>
+          ))}
+        </div>
       </div>
     );
   }
+
   const handleNavigation = (id: string | number) => {
     router.push(`/products/${id}`);
   };

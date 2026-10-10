@@ -4,13 +4,13 @@ import Logo from "../../../assets/logo-icon.png";
 import Link from "next/link";
 import NaveLinks from "./NavLinks";
 import UserMenu from "./UserMenu";
-import { apiBaseUrl2 } from "@/Services/apiBaseUrl"; // আপনার সঠিক পাথ দিন
+import { apiBaseUrl2 } from "@/Services/apiBaseUrl";
+import NewDate from "./NewDate";
 
-// ১. সার্ভার সাইডে ডেটা ফেচ করার ফাংশন
 async function getCategories() {
   try {
     const res = await fetch(`${apiBaseUrl2}/categories`, {
-      next: { revalidate: 3600 }, // ১ ঘণ্টা পর পর ক্যাশ আপডেট হবে (প্রয়োজনে পরিবর্তন করতে পারেন)
+      next: { revalidate: 3600 },
     });
     if (!res.ok) return [];
     return await res.json();
@@ -20,18 +20,8 @@ async function getCategories() {
   }
 }
 
-// ২. Navbar এখন একটি সার্ভার কম্পোনেন্ট (কোনো "use client" নেই)
 const Navbar = async () => {
-  // সার্ভার থেকেই ডেটা ফেচ করে নিয়ে আসা হচ্ছে
   const categories = await getCategories();
-
-  // সার্ভার রেন্ডারিংয়ের কারণে Hydration Error আসবে না
-  // const date = new Date().toLocaleDateString("bn-BD", { 
-  //   weekday: 'long', 
-  //   day: 'numeric', 
-  //   month: 'long', 
-  //   year: 'numeric' 
-  // });
 
   return (
     <nav className="navbar bg-white border border-gray-100 shadow-sm px-4 sm:px-8">
@@ -60,13 +50,13 @@ const Navbar = async () => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-56 p-2 shadow-md border border-gray-100"
               >
-                {/* మొবাইল মেনুর জন্য NavLinks */}
-                <Suspense fallback={<li className="p-2 text-gray-500">লোড হচ্ছে...</li>}>
+                <Suspense
+                  fallback={<NaveLinks categories={[]} isMobile={true} loading={true} />}
+                >
                   <NaveLinks categories={categories} isMobile={true} />
                 </Suspense>
               </ul>
             </div>
-            
             <Link href="/">
               <div className="flex items-center gap-4">
                 <Image
@@ -80,23 +70,19 @@ const Navbar = async () => {
                   <h1 className="text-xl font-extrabold text-gray-800">
                     বাজার দর
                   </h1>
-                  <p className="text-xs sm:text-sm text-gray-600">
-                    date
-                    {/* {date} */}
-                  </p>
+                  <NewDate />
                 </div>
               </div>
             </Link>
           </div>
-          
           <div>
             <UserMenu />
           </div>
         </div>
-
-        {/* ডেস্কটপ মেনুর জন্য NavLinks */}
         <div className="hidden lg:flex w-full border-t border-gray-100 items-center justify-start pt-3">
-          <Suspense fallback={<div className="text-sm text-gray-500 py-2">লোড হচ্ছে...</div>}>
+          <Suspense
+            fallback={<NaveLinks categories={[]} isMobile={false} loading={true} />}
+          >
             <NaveLinks categories={categories} isMobile={false} />
           </Suspense>
         </div>

@@ -2,10 +2,9 @@
 import React from "react";
 import Image from "next/image";
 import HeroImage from "@/assets/bazar-hero.png";
+// import NewDate from "../shared/Nav/NewDate";
 
 const Hero = () => {
-  // const date = new Date().toLocaleDateString("bn-BD", { dateStyle: "full" });
-
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white border border-gray-100 rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
@@ -14,8 +13,7 @@ const Hero = () => {
             className="bg-[#E8F5E9] text-[#1B5E20] px-4 py-1.5 rounded-full text-xs font-medium mb-4"
             suppressHydrationWarning
           >
-            <h2>Date</h2>
-            {/* {date} */}
+            {/* <NewDate /> */}
           </div>
           <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
             আজকের বাজারের দাম এক নজরে
