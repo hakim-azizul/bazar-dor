@@ -9,13 +9,16 @@ const Hero = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white border border-gray-100 rounded-3xl p-8 md:p-12 shadow-sm flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex flex-col items-start max-w-xl">
-          <div
-            className="bg-[#E8F5E9] text-[#1B5E20] px-4 py-1.5 rounded-full text-xs font-medium mb-4"
-            suppressHydrationWarning
-          >
-            <NewDate />
+          <div className="mb-6 flex justify-start">
+            <span
+              className="inline-flex items-center justify-center bg-emerald-100/90 text-emerald-800 text-sm font-semibold px-4 py-2 rounded-full border border-emerald-200 shadow-sm"
+              suppressHydrationWarning
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 mr-2 animate-pulse"></span>
+              <NewDate />
+            </span>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-4 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-4xl font-extrabold text-gray-900 mb-4 leading-tight">
             আজকের বাজারের দাম এক নজরে
           </h1>
           <p className="text-gray-600 text-sm md:text-base mb-8 leading-relaxed">
