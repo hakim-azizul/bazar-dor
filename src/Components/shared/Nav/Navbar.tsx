@@ -24,7 +24,7 @@ const Navbar = async () => {
   const categories = await getCategories();
 
   return (
-    <nav className="navbar bg-white border border-gray-100 shadow-sm px-4 sm:px-8">
+    <nav className="bg-white/90 backdrop-blur-md border border-white/30 shadow-sm px-4 sm:px-8">
       <div className="container mx-auto flex flex-col w-full">
         <div className="flex justify-between items-center w-full py-2">
           <div className="flex items-center gap-3">

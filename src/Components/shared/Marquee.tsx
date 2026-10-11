@@ -24,7 +24,7 @@ const Marquee = () => {
 
   if (loading) {
     return (
-      <div className="bg-white border-y border-gray-100 py-3 overflow-hidden whitespace-nowrap relative shadow-sm pointer-events-auto">
+      <div className="bg-white/40 backdrop-blur-md border-y border-white/30 py-3 overflow-hidden whitespace-nowrap relative shadow-sm pointer-events-auto">
         <div className="inline-flex animate-pulse items-center gap-10">
           {Array.from({ length: 8 }).map((_, index) => (
             <div

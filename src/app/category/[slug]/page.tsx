@@ -12,7 +12,7 @@ interface PageProps {
 const CategorySkeleton = () => {
   return (
     <div className="w-full animate-pulse">
-      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 mb-4 min-h-[100px]">
+      <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 mb-4 min-h-25">
         <div className="w-16 h-16 bg-gray-100 rounded-full shrink-0"></div>
         <div className="space-y-3 w-full">
           <div className="h-6 bg-gray-200 rounded-md w-32"></div>
@@ -20,7 +20,7 @@ const CategorySkeleton = () => {
         </div>
       </div>
 
-      <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-end items-center mb-6 min-h-[70px]">
+      <div className="bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex justify-end items-center mb-6 min-h-17.5">
         <div className="h-10 bg-gray-100 rounded-lg w-48"></div>
       </div>
 

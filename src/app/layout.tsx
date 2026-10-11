@@ -7,7 +7,6 @@ import Marquee from "@/Components/shared/Marquee";
 import { ProductProvider } from "@/context/AllProductContext";
 import ToastProvider from "@/Components/shared/ToastProvider";
 
-
 const Siliguri = Hind_Siliguri({
   subsets: ["latin", "bengali"],
   weight: ["300", "400", "500", "600", "700"],
@@ -27,8 +26,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col bg-[#F0F5F0]">
         <ProductProvider>
-          <Navbar />
-          <Marquee />
+          <header className="sticky top-0 z-50 w-full flex flex-col">
+            <Navbar />
+            <Marquee />
+          </header>
           <ToastProvider />
           <main>{children}</main>
           <Footer />
