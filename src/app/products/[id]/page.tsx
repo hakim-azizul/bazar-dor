@@ -20,7 +20,7 @@ const ProductSkeleton = () => {
         <div className="h-4 bg-gray-300 rounded w-20"></div>
       </div>
 
-      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8 min-h-[160px]">
+      <div className="bg-white p-6 md:p-8 rounded-2xl shadow-sm border border-gray-100 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 mb-8 min-h-40">
         <div className="flex items-center gap-6 w-full sm:w-auto">
           <div className="w-20 h-20 bg-gray-100 rounded-2xl shrink-0"></div>
           <div className="space-y-3 w-full">
@@ -42,7 +42,7 @@ const ProductSkeleton = () => {
         <div className="h-6 bg-gray-200 rounded w-48 mb-4"></div>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm min-h-[100px]">
+            <div key={i} className="bg-white p-5 rounded-xl border border-gray-100 shadow-sm min-h-25">
               <div className="h-3 bg-gray-200 rounded w-24 mb-3"></div>
               <div className="h-6 bg-gray-300 rounded w-20 mb-2"></div>
               <div className="h-3 bg-gray-100 rounded w-32"></div>
